@@ -18,6 +18,7 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/notes', require('./routes/notes'));
 app.use('/api/tags', require('./routes/tags'));
 app.use('/api/folders', require('./routes/folders'));
+app.use('/api/users', require('./routes/users'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 

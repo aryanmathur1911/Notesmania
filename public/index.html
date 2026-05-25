@@ -4,71 +4,89 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Notes App</title>
+<script src="https://cdn.tailwindcss.com"></script>
 <link rel="stylesheet" href="/styles.css" />
 </head>
-<body>
-<header>
-  <h1>📝 Notesmania</h1>
-  <nav id="nav"></nav>
+<body class="min-h-screen bg-slate-950 text-slate-100 antialiased">
+<header class="bg-slate-950/95 backdrop-blur-xl border-b border-slate-800/70 shadow-[0_20px_80px_rgba(15,23,42,0.35)]">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+    <div class="flex items-center gap-4">
+      <span class="text-3xl">✨</span>
+      <div>
+        <h1 class="text-2xl font-semibold tracking-tight text-slate-100">Notesmania</h1>
+        <p class="text-sm text-slate-400">A colorful workspace for notes, users, folders and tags.</p>
+      </div>
+    </div>
+    <nav id="nav" class="flex items-center gap-3"></nav>
+  </div>
 </header>
 
-<main id="app">
+<main id="app" class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
   <!-- Auth view -->
-  <section id="auth-view" class="card hidden">
-    <div class="tabs">
-      <button class="tab active" data-tab="login">Login</button>
-      <button class="tab" data-tab="register">Register</button>
+  <section id="auth-view" class="card mx-auto max-w-md space-y-6 bg-slate-950/90 border border-slate-700">
+    <div class="tabs grid grid-cols-2 gap-2 rounded-3xl bg-slate-900/80 p-1">
+      <button class="tab active rounded-3xl bg-slate-800 px-4 py-3 text-sm font-semibold text-white shadow-sm transition" data-tab="login">Login</button>
+      <button class="tab rounded-3xl px-4 py-3 text-sm font-semibold text-slate-400 transition" data-tab="register">Register</button>
     </div>
-    <form id="login-form" class="auth-form">
+    <form id="login-form" class="auth-form space-y-4">
       <input name="username" placeholder="Username or email" required />
       <input name="password" type="password" placeholder="Password" required />
-      <button type="submit">Log in</button>
+      <button type="submit" class="primary w-full">Log in</button>
       <p class="error" id="login-error"></p>
     </form>
-    <form id="register-form" class="auth-form hidden">
+    <form id="register-form" class="auth-form hidden space-y-4">
       <input name="username" placeholder="Username" required />
       <input name="email" type="email" placeholder="Email" required />
       <input name="password" type="password" placeholder="Password (min 6)" required />
-      <button type="submit">Create account</button>
+      <button type="submit" class="primary w-full">Create account</button>
       <p class="error" id="register-error"></p>
     </form>
   </section>
 
   <!-- Main app -->
-  <section id="main-view" class="hidden">
-    <div class="toolbar">
-      <div class="filters">
-        <button class="filter active" data-filter="all">All notes</button>
-        <button class="filter" data-filter="mine">My notes</button>
+  <section id="main-view" class="hidden space-y-6">
+    <div class="toolbar flex flex-col gap-4 rounded-3xl bg-slate-900/90 p-5 shadow-2xl shadow-slate-950/30 sm:flex-row sm:items-center sm:justify-between">
+      <div class="flex flex-wrap items-center gap-3">
+        <button class="filter active rounded-full border border-slate-700 bg-sky-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-sky-400" data-filter="all">All notes</button>
+        <button class="filter rounded-full border border-slate-700 bg-slate-800 px-4 py-2 text-sm font-semibold text-slate-100 transition hover:bg-slate-700" data-filter="mine">My notes</button>
       </div>
-      <button id="new-note-btn" class="primary">+ New note</button>
+      <button id="new-note-btn" class="primary rounded-full px-5 py-3">+ New note</button>
     </div>
 
-    <div class="grid">
-      <aside class="sidebar card">
-        <h3>My folders</h3>
-        <form id="folder-form" class="inline-form">
-          <input name="folder_name" placeholder="New folder…" required />
-          <button>Add</button>
-        </form>
-        <ul id="folder-list" class="tag-list"></ul>
+    <div class="grid gap-6 lg:grid-cols-[320px_1fr_320px]">
+      <aside class="sidebar card space-y-6 bg-slate-900/80 border border-slate-700/70">
+        <div>
+          <h3 class="text-sm font-semibold uppercase tracking-[0.16em] text-slate-400">Folders</h3>
+          <form id="folder-form" class="inline-form mt-4 flex gap-3">
+            <input name="folder_name" placeholder="New folder…" required />
+            <button class="primary rounded-full px-4">Add</button>
+          </form>
+          <ul id="folder-list" class="tag-list mt-4 space-y-3"></ul>
+        </div>
 
-        <h3>My tags</h3>
-        <form id="tag-form" class="inline-form">
-          <input name="tag_name" placeholder="New tag…" required />
-          <button>Add</button>
-        </form>
-        <ul id="tag-list" class="tag-list"></ul>
+        <div>
+          <h3 class="text-sm font-semibold uppercase tracking-[0.16em] text-slate-400">Tags</h3>
+          <form id="tag-form" class="inline-form mt-4 flex gap-3">
+            <input name="tag_name" placeholder="New tag…" required />
+            <button class="primary rounded-full px-4">Add</button>
+          </form>
+          <ul id="tag-list" class="tag-list mt-4 space-y-3"></ul>
+        </div>
       </aside>
 
-      <div id="notes-list" class="notes"></div>
+      <div class="notes-area space-y-5">
+        <div id="notes-toolbar" class="rounded-3xl border border-slate-800/70 bg-slate-900/80 p-4 text-slate-300 shadow-sm"></div>
+        <div id="notes-list" class="notes grid gap-5 sm:grid-cols-2 xl:grid-cols-3"></div>
+      </div>
+
+      <aside id="user-panel" class="users-panel card space-y-6 bg-slate-900/80 border border-slate-700/70 overflow-hidden"></aside>
     </div>
   </section>
 
   <!-- Note editor modal -->
   <div id="modal" class="modal hidden">
-    <div class="modal-content card">
-      <button class="close" id="modal-close">×</button>
+    <div class="modal-content card max-w-3xl">
+      <button class="close" id="modal-close" aria-label="Close modal">×</button>
       <div id="modal-body"></div>
     </div>
   </div>

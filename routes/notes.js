@@ -20,10 +20,19 @@ function enrichNote(n) {
 
 // list all notes (any user can view)
 router.get('/', (req, res) => {
-  const { folder_id } = req.query;
-  const rows = folder_id
-    ? db.prepare('SELECT * FROM notes WHERE folder_id=? ORDER BY updated_at DESC').all(folder_id)
-    : db.prepare('SELECT * FROM notes ORDER BY updated_at DESC').all();
+  const { folder_id, user_id } = req.query;
+  const conditions = [];
+  const params = [];
+  if (user_id) {
+    conditions.push('user_id = ?');
+    params.push(user_id);
+  }
+  if (folder_id) {
+    conditions.push('folder_id = ?');
+    params.push(folder_id);
+  }
+  const sql = `SELECT * FROM notes${conditions.length ? ' WHERE ' + conditions.join(' AND ') : ''} ORDER BY updated_at DESC`;
+  const rows = db.prepare(sql).all(...params);
   res.json(rows.map(enrichNote));
 });
 
