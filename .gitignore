@@ -1,0 +1,4 @@
+node_modules
+notes.db
+notes.db-*
+.env

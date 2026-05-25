@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Notes App</title>
+<link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+<header>
+  <h1>📝 Notesmania</h1>
+  <nav id="nav"></nav>
+</header>
+
+<main id="app">
+  <!-- Auth view -->
+  <section id="auth-view" class="card hidden">
+    <div class="tabs">
+      <button class="tab active" data-tab="login">Login</button>
+      <button class="tab" data-tab="register">Register</button>
+    </div>
+    <form id="login-form" class="auth-form">
+      <input name="username" placeholder="Username or email" required />
+      <input name="password" type="password" placeholder="Password" required />
+      <button type="submit">Log in</button>
+      <p class="error" id="login-error"></p>
+    </form>
+    <form id="register-form" class="auth-form hidden">
+      <input name="username" placeholder="Username" required />
+      <input name="email" type="email" placeholder="Email" required />
+      <input name="password" type="password" placeholder="Password (min 6)" required />
+      <button type="submit">Create account</button>
+      <p class="error" id="register-error"></p>
+    </form>
+  </section>
+
+  <!-- Main app -->
+  <section id="main-view" class="hidden">
+    <div class="toolbar">
+      <div class="filters">
+        <button class="filter active" data-filter="all">All notes</button>
+        <button class="filter" data-filter="mine">My notes</button>
+      </div>
+      <button id="new-note-btn" class="primary">+ New note</button>
+    </div>
+
+    <div class="grid">
+      <aside class="sidebar card">
+        <h3>My folders</h3>
+        <form id="folder-form" class="inline-form">
+          <input name="folder_name" placeholder="New folder…" required />
+          <button>Add</button>
+        </form>
+        <ul id="folder-list" class="tag-list"></ul>
+
+        <h3>My tags</h3>
+        <form id="tag-form" class="inline-form">
+          <input name="tag_name" placeholder="New tag…" required />
+          <button>Add</button>
+        </form>
+        <ul id="tag-list" class="tag-list"></ul>
+      </aside>
+
+      <div id="notes-list" class="notes"></div>
+    </div>
+  </section>
+
+  <!-- Note editor modal -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-content card">
+      <button class="close" id="modal-close">×</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+</main>
+
+<script src="/app.js"></script>
+</body>
+</html>
