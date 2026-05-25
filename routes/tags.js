@@ -33,7 +33,7 @@ router.put('/:id', requireAuth, (req, res) => {
   if (!t) return res.status(404).json({ error: 'Not found' });
   if (t.user_id !== req.session.userId)
     return res.status(403).json({ error: 'You can only edit your own tags' });
-  const { tag_name, description } = req.body || {};
+  const { tag_nametags, description } = req.body || {};
   db.prepare('UPDATE tags SET tag_name=?, description=? WHERE tag_id=?')
     .run(tag_name ?? t.tag_name, description ?? t.description, req.params.id);
   res.json({ ok: true });

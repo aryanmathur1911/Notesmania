@@ -317,7 +317,10 @@ function openEditor(note) {
           <label class="text-sm font-semibold text-slate-400">Tags</label>
           <div class="tag-pick">
             ${myTags.length ? myTags.map(t => `
-              <label class="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-slate-950/90 px-4 py-2 text-sm text-slate-100 transition hover:border-slate-500"><input type="checkbox" class="h-4 w-4 accent-sky-500" value="${t.tag_id}" ${selectedIds.has(t.tag_id) ? 'checked' : ''} />#${escapeHtml(t.tag_name)}</label>
+              <label class="inline-flex items-center gap-2 rounded-full border border-slate-700 bg-white px-4 py-2 text-sm transition hover:border-slate-500">
+  <input type="checkbox" class="h-4 w-4 accent-sky-500" value="${t.tag_id}" ${selectedIds.has(t.tag_id) ? 'checked' : ''} />
+  <span class="text-black">#${escapeHtml(t.tag_name)}</span>
+</label>
             `).join('') : '<span class="text-slate-500 text-sm">No tags. Create some in the sidebar.</span>'}
           </div>
         </div>
